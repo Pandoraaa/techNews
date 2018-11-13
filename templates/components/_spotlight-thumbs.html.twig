@@ -1,0 +1,23 @@
+<div class="col-md-4 col-sm-4 col-xs-12">
+
+    <div class="spotlight-item-thumb">
+        <div class="spotlight-item-thumb-img">
+            <a href="#">
+                <img alt="{{ article.titre }}" src="{{ asset('images/product/'~ article.featuredimage) }}" />
+            </a>
+            <a href="{{ path('index_categorie', {
+                categorie: article.categorie.nom | lower
+            }) }})" class="cate-tag">{{ article.categorie.nom }}</a>
+        </div>
+        <h3><a href="javascript:void (0)">{{ article.titre }}</a></h3>
+        <div class="meta-post">
+            <a href="javascript:void (0)">
+                {{ article.membre.prenom ~ ' ' ~ article.membre.nom }}
+            </a>
+            <em></em>
+            <span>
+                {{ article.datecreation|date("d/m/Y") }}
+            </span>
+        </div>
+    </div>
+</div>
