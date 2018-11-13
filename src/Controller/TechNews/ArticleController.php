@@ -24,6 +24,7 @@ use App\Controller\HelperTrait;
 class ArticleController extends Controller
 {
     use HelperTrait;
+
     /**
      * Démonstration de l'ajout d'un article avec Doctrine.
      * @Route("test/article/add", name="article_test")
@@ -103,7 +104,7 @@ class ArticleController extends Controller
 //        $form->handleRequest($request);
 
         # Vérification des données du Formulaire
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
 //            # Récupération des données
 //            /** @var Article $article */
@@ -113,7 +114,7 @@ class ArticleController extends Controller
             # on passe nos données directement au service qui se chargera du traitement de l'article.
             $article = $articleRequestHandler->handle($article);
 
-            if (null !== $article){
+            if (null !== $article) {
                 # Flash Message
                 $this->addFlash('notice',
                     'Félicitation, votre article est en ligne!');
