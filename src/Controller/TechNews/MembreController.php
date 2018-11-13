@@ -44,7 +44,7 @@ class MembreController extends Controller
             $this->addFlash('notice', 'Félicitations vous pouvez vous connecter!');
 
             #Redirection
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('security_connexion');
         }
 
         # Affichage du formulaire
