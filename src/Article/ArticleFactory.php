@@ -34,4 +34,8 @@ class ArticleFactory
             $request->getDateCreation()
         );
     }
+
+
+
+
 }

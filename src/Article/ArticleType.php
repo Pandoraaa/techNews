@@ -8,8 +8,6 @@
 
 namespace App\Article;
 
-
-use App\Entity\Article;
 use App\Entity\Categorie;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -58,7 +56,8 @@ class ArticleType extends AbstractType
                 'required'  => true,
                 'label'     => false,
                 'attr'      => [
-                    'class' => 'dropify'
+                    'class' => 'dropify',
+                    'data-default-file' => 'imageUrl'
                 ]
             ])
 

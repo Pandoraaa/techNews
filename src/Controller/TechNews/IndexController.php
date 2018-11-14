@@ -91,7 +91,6 @@ class IndexController extends Controller
      * @Route("/{categorie<\w+>}/{slug}_{id<\d+>}.html",
      *     name="index_article")
      * @param Article $article
-     * @param $categorie
      * @return Response
      */
     public function article(Article $article = null)

@@ -1,10 +1,42 @@
 <!--colright-->
 <div class="col-md-4 col-sm-12">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <h3 class="text-center">
+            Bonjour {{ app.user.prenom }}
+        </h3>
+
+        <h4 class="text-center">
+            {% if is_granted('ROLE_ADMIN') %}
+                Administrateur
+            {% elseif is_granted('ROLE_EDITEUR') %}
+                Editeur
+            {% elseif is_granted('ROLE_AUTEUR') %}
+                Auteur
+            {% else %}
+                Membre
+            {% endif %}
+        </h4>
+
+        <ul class="list-group">
+            {% if is_granted('ROLE_AUTEUR') %}
+                <li class="list-group-item">
+                    <a href="{{ path('article_new') }}">
+                        Rédiger un article
+                    </a>
+                </li>
+            {% endif %}
+            <li class="list-group-item">
+                <a href="{{ path('security_deconnexion') }}">
+                    Déconnexion
+                </a>
+            </li>
+        </ul>
+    {% endif %}
     <!--tab popular-->
     <ul role="tablist" class="tab-popular">
         <li class="active">
             <a href="#tab1" role="tab" data-toggle="tab">
-                DERNI&Egrave;RE PUBLICATIONS
+                DERNI&Egrave;RES PUBLICATIONS
             </a>
         </li>
     </ul>
@@ -12,29 +44,29 @@
         <div role="tabpanel" class="tab-pane active" id="tab1">
             <ul class="list-news-popular">
                 {% for article in articles %}
-                <li>
-                    <a href="{{ path('index_article', {
-                        categorie: article.categorie.slug,
-                        slug: article.slug,
-                        id: article.id
-                    }) }}">
-                        <img alt="{{ article.titre }}" src="{{ asset('images/product/'~ article.featuredImage) }}">
-                    </a>
-                    <h3><a href="{{ path('index_article', {
+                    <li>
+                        <a href="{{ path('index_article', {
                             categorie: article.categorie.slug,
                             slug: article.slug,
                             id: article.id
-                        }) }}">{{ article.titre }}</a></h3>
-                    <div class="meta-post">
-                        <a href="#">
-                            {{ article.membre.prenom ~ ' ' ~ article.membre.nom }}
+                        }) }}">
+                            <img alt="{{ article.titre }}" src="{{ asset('images/product/'~ article.featuredImage) }}">
                         </a>
-                        <em></em>
-                        <span>
+                        <h3><a href="{{ path('index_article', {
+                                categorie: article.categorie.slug,
+                                slug: article.slug,
+                                id: article.id
+                            }) }}">{{ article.titre }}</a></h3>
+                        <div class="meta-post">
+                            <a href="#">
+                                {{ article.membre.prenom ~ ' ' ~ article.membre.nom }}
+                            </a>
+                            <em></em>
+                            <span>
 							{{ article.dateCreation |date("d/m/Y") }}
 						</span>
-                    </div>
-                </li>
+                        </div>
+                    </li>
                 {% endfor %}
 
             </ul>
@@ -46,7 +78,7 @@
     <div class="subcribe-box">
         <h3>NEWSLETTER</h3>
         <p>Inscrivez-vous pour recevoir nos dernières publications.</p>
-        <input type="text" placeholder="Votre Email..." />
+        <input type="text" placeholder="Votre Email..."/>
         <button class="my-btn">Je m'inscris</button>
     </div>
     <!-- connect us-->
@@ -99,30 +131,30 @@
         </div>
         <div class="list-special">
             {% for article in specials %}
-            <article class="news-two-large">
-                <a href="{{ path('index_article', {
-                    categorie: article.categorie.slug,
-                    slug: article.slug,
-                    id: article.id
-                }) }}">
-                    <img alt="{{ article.titre }}" src="{{ asset('images/product/'~ article.featuredImage) }}">
-                </a>
-                <h3><a href="{{ path('index_article', {
+                <article class="news-two-large">
+                    <a href="{{ path('index_article', {
                         categorie: article.categorie.slug,
                         slug: article.slug,
                         id: article.id
-                    }) }}">{{ article.titre }}</a></h3>
-                <div class="meta-post">
-                    <a href="#">
-                        {{ article.membre.prenom ~ ' ' ~ article.membre.nom }}
+                    }) }}">
+                        <img alt="{{ article.titre }}" src="{{ asset('images/product/'~ article.featuredImage) }}">
                     </a>
-                    <em></em>
-                    <span>
+                    <h3><a href="{{ path('index_article', {
+                            categorie: article.categorie.slug,
+                            slug: article.slug,
+                            id: article.id
+                        }) }}">{{ article.titre }}</a></h3>
+                    <div class="meta-post">
+                        <a href="#">
+                            {{ article.membre.prenom ~ ' ' ~ article.membre.nom }}
+                        </a>
+                        <em></em>
+                        <span>
 						{{ article.dateCreation |date("d/m/Y") }}
 					</span>
-                </div>
+                    </div>
 
-            </article>
+                </article>
             {% endfor %}
         </div>
     </div>

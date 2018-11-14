@@ -15,7 +15,9 @@ use App\Article\ArticleType;
 use App\Entity\Article;
 use App\Entity\Categorie;
 use App\Entity\Membre;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -79,6 +81,7 @@ class ArticleController extends Controller
      * Formulaire pour ajouter un Article
      * @Route("/creer-un-article",
      *     name="article_new")
+     * @Security("has_role('ROLE_AUTEUR')")
      * @param Request $request
      * @param ArticleRequestHandler $articleRequestHandler
      * @return Response
@@ -86,15 +89,15 @@ class ArticleController extends Controller
     public function newArticle(Request $request, ArticleRequestHandler $articleRequestHandler)
     {
         # Récupération de l'auteur ou en session
-        $membre = $this->getDoctrine()
-            ->getRepository(Membre::class)
-            ->find(1);
+//        $membre = $this->getDoctrine()
+//            ->getRepository(Membre::class)
+//            ->find(1);
 
         # Création d'un Article
 //        $article = new Article();
 //        $article->setMembre($membre);
 
-        $article = new ArticleRequest($membre);
+        $article = new ArticleRequest($this->getUser());
 
         # Créer un Formulaire permettant l'ajout d'un Article
         $form = $this->createForm(ArticleType::class, $article)
@@ -137,5 +140,41 @@ class ArticleController extends Controller
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/{categorie<\w+>}/edit/{slug}_{id<\d+>}.html",
+     *     name="edit_article")
+     * @param Request $request
+     * @param ArticleRequestHandler $articleRequestHandler
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function editArticle(Request $request, ArticleRequestHandler $articleRequestHandler, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository(Article::class)->find($id);
+
+        //Transforme Article en ArticleRequest
+        $articleRequest = $articleRequestHandler->transform($article);
+dump($articleRequest);
+        $form = $this->createForm(ArticleType::class, $articleRequest)
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $articleRequestHandler->handle($articleRequest);
+
+            return $this->redirectToRoute('index_article', [
+                'categorie' => $article->getCategorie()->getSlug(),
+                'slug' => $article->getSlug(),
+                'id' => $article->getId()
+            ]);
+        }
+
+        return $this->render('article/form.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+
 
 }
