@@ -23,7 +23,8 @@ class IndexController extends Controller
      * @param YamlProvider $yamlProvider
      * @return Response
      */
-    public function index(YamlProvider $yamlProvider) {
+    public function index(YamlProvider $yamlProvider)
+    {
         # Récupération des Articles depuis YamlProvider
         #$articles = $yamlProvider->getArticles();
 
