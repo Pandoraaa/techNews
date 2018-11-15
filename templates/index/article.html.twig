@@ -94,7 +94,9 @@
         {% endif %}
     </div>
     {#{% include 'components/_sidebar.html.twig' %}#}
-        {{ render(controller('App\\Controller\\TechNews\\IndexController::sidebar')) }}
+        {{ render(controller('App\\Controller\\TechNews\\IndexController::sidebar', {
+            'article' : article
+        })) }}
 </div>
 {% endblock %}
 

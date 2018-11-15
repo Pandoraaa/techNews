@@ -11,12 +11,14 @@ namespace App\Controller\TechNews;
 
 use App\Article\ArticleRequest;
 use App\Article\ArticleRequestHandler;
+use App\Article\ArticleRequestUpdateHandler;
 use App\Article\ArticleType;
 use App\Entity\Article;
 use App\Entity\Categorie;
 use App\Entity\Membre;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -142,39 +144,54 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/{categorie<\w+>}/edit/{slug}_{id<\d+>}.html",
-     *     name="edit_article")
+     * Editer / Modifier un Article
+     * @Route("/editer-un-article/{id<\d+>}",
+     *     name="article_edit")
+     * @Security("article.isAuteur(user) or has_role('ROLE_EDITEUR')")
      * @param Request $request
-     * @param ArticleRequestHandler $articleRequestHandler
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @param Article $article
+     * @param Packages $packages
+     * @param ArticleRequestUpdateHandler $updateHandler
+     * @return Response
      */
-    public function editArticle(Request $request, ArticleRequestHandler $articleRequestHandler, $id)
+    public function editArticle(Request $request,
+                                Article $article,
+                                Packages $packages,
+                                ArticleRequestUpdateHandler $updateHandler)
     {
-        $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository(Article::class)->find($id);
+        $ar = ArticleRequest::createFromArticle($article,
+            $this->getParameter('articles_dir'),
+            $this->getParameter('articles_assets_dir'),
+            $packages);
 
-        //Transforme Article en ArticleRequest
-        $articleRequest = $articleRequestHandler->transform($article);
-dump($articleRequest);
-        $form = $this->createForm(ArticleType::class, $articleRequest)
+        # Création du Formulaire
+        $options = [
+            'image_url' => $ar->getImageUrl()
+        ];
+
+        $form = $this->createForm(ArticleType::class, $ar, $options)
             ->handleRequest($request);
 
+        # Vérification des données du Formulaire
         if ($form->isSubmitted() && $form->isValid()) {
-            $articleRequestHandler->handle($articleRequest);
 
-            return $this->redirectToRoute('index_article', [
-                'categorie' => $article->getCategorie()->getSlug(),
-                'slug' => $article->getSlug(),
+            # Traitement et sauvegarde
+            $updateHandler->handle($ar, $article);
+
+            # Flash Message
+            $this->addFlash('notice', 'Modification effectuée');
+
+            return $this->redirectToRoute('article_edit', [
                 'id' => $article->getId()
             ]);
         }
 
+        # Affichage du Formulaire dans la vue
         return $this->render('article/form.html.twig', [
             'form' => $form->createView()
         ]);
-    }
 
+    }
 
 
 }

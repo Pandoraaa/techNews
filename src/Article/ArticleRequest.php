@@ -9,7 +9,10 @@
 namespace App\Article;
 
 
+use App\Entity\Article;
 use App\Entity\Membre;
+use Symfony\Component\Asset\Packages;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ArticleRequest
@@ -64,6 +67,30 @@ class ArticleRequest
     {
         $this->membre = $membre;
         $this->dateCreation = new \DateTime();
+    }
+
+    /**
+     * @param Article $article
+     * @param string $articleDir
+     * @param string $articleAssetDir
+     * @param Packages $packages
+     * @return ArticleRequest
+     */
+    public static function createFromArticle(Article $article, string $articleDir, string $articleAssetDir, Packages $packages): self
+    {
+        $ar = new self($article->getMembre());
+        $ar->id = $article->getId();
+        $ar->titre = $article->getTitre();
+        $ar->slug = $article->getSlug();
+        $ar->contenu = $article->getContenu();
+        $ar->featuredImage = new File($articleAssetDir.'/'.$article->getFeaturedImage());
+        $ar->imageUrl = $packages->getUrl('images/product/'.$article->getFeaturedImage());
+        $ar->special = $article->getSpecial();
+        $ar->spotlight = $article->getSpotlight();
+        $ar->categorie = $article->getCategorie();
+        $ar->dateCreation = $article->getDateCreation();
+
+        return $ar;
     }
 
     /**

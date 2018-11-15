@@ -25,6 +25,16 @@
                     </a>
                 </li>
             {% endif %}
+            {% if article is defined
+                and article
+                and ((article.isAuteur(app.user) and is_granted('ROLE_AUTEUR'))
+                or is_granted('ROLE_EDITEUR')) %}
+                <li class="list-group-item">
+                    <a href="{{ path('article_edit', {'id': article.id }) }}">
+                        Editer cet article
+                    </a>
+                </li>
+            {% endif %}
             <li class="list-group-item">
                 <a href="{{ path('security_deconnexion') }}">
                     Déconnexion

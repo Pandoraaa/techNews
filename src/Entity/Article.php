@@ -100,6 +100,25 @@ class Article
         $this->dateCreation = $dateCreation;
     }
 
+    public function update(
+        string $titre,
+        string $slug,
+        string $contenu,
+        string $featuredImage,
+        bool $special,
+        bool $spotlight,
+        Categorie $categorie
+        )
+    {
+        $this->titre = $titre;
+        $this->slug = $slug;
+        $this->contenu = $contenu;
+        $this->featuredImage = $featuredImage;
+        $this->special = $special;
+        $this->spotlight = $spotlight;
+        $this->categorie = $categorie;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -219,6 +238,11 @@ class Article
     public function setMembre($membre): void
     {
         $this->membre = $membre;
+    }
+
+    public function isAuteur(?Membre $membre = null):bool
+    {
+        return $membre && $this->membre->getId() === $membre->getId();
     }
 
 }

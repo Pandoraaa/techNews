@@ -8,6 +8,7 @@
 
 namespace App\Article;
 
+use App\Article\EventListener\ArticleTypeSlugFieldSubscriber;
 use App\Entity\Categorie;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -57,7 +58,7 @@ class ArticleType extends AbstractType
                 'label'     => false,
                 'attr'      => [
                     'class' => 'dropify',
-                    'data-default-file' => 'imageUrl'
+                    'data-default-file' => $options['image_url']
                 ]
             ])
 
@@ -79,15 +80,18 @@ class ArticleType extends AbstractType
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Publier mon Article'])
-            ;
+                'label' => 'Publier mon Article'
+            ])
+            ->addEventSubscriber(new ArticleTypeSlugFieldSubscriber())
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
 //            'data_class' => Article::class
-            'data_class' => ArticleRequest::class
+            'data_class' => ArticleRequest::class,
+            'image_url' => null
         ]);
     }
 
