@@ -1,0 +1,16 @@
+form.register.firstname: Prénom
+form.placeholder.firstname: Prénom...
+form.register.name: Nom
+form.placeholder.name: Nom...
+form.register.email: Email
+form.placeholder.email: Email...
+form.register.password: 'Mot de passe'
+form.placeholder.password: 'Mot de passe...'
+form.register.cgu: 'J''accepte les CGU'
+form.register.submit: 'Je m''inscris !'
+form.article.title: 'Titre de l''article'
+form.article.title.placeholder: 'Titre de l''article'
+form.article.category: Categorie
+'yes': Oui
+'no': Non
+form.article.publish: 'Publier mon article'

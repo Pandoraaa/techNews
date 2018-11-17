@@ -10,7 +10,8 @@ namespace App\Controller;
 
 use Behat\Transliterator\Transliterator;
 
-trait HelperTrait{
+trait HelperTrait
+{
     /**
      * Permet de générer un Slug à partir d'un String
      * @param $text

@@ -20,6 +20,7 @@ class ArticleRequestUpdateHandler
     use HelperTrait;
 
     private $em, $articleAssetsDir;
+
     public function __construct(ObjectManager $manager,
                                 string $articleAssetsDir)
     {
@@ -35,20 +36,20 @@ class ArticleRequestUpdateHandler
 
         /** TODO: virer l'ancienne image du serveur */
         # On vérifie
-        if (null !==$image) {
-        $fileName = $this->slugify($request->getTitre()) . '.' . $image->guessExtension();
+        if (null !== $image) {
+            $fileName = $this->slugify($request->getTitre()) . '.' . $image->guessExtension();
 
-        try {
-            $image->move(
-                $this->articleAssetsDir,
-                $fileName
-            );
-        } catch (FileException $e) {
-            // ... handle exception if something happens during file upload
-        }
+            try {
+                $image->move(
+                    $this->articleAssetsDir,
+                    $fileName
+                );
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
 
-        # Mise à jour de l'image
-        $request->setFeaturedImage($fileName);
+            # Mise à jour de l'image
+            $request->setFeaturedImage($fileName);
         } else {
             $request->setFeaturedImage($article->getFeaturedImage());
         }

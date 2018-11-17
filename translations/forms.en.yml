@@ -1,0 +1,17 @@
+form.register.firstname: Firstname
+form.placeholder.firstname: Firstname...
+form.register.name: Name
+form.placeholder.name: Name...
+form.register.email: Email
+form.placeholder.email: Email...
+form.register.password: Password
+form.placeholder.password: Password...
+form.register.cgu: 'I accept the UGC'
+form.register.submit: 'Sign up !'
+form.article.title: 'Title of the article'
+form.article.title.placeholder: 'Title of the article'
+form.article.category: Category
+'yes': Yes
+'no': No
+form.yes: Yes
+form.article.publish: 'Publish my article'

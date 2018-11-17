@@ -2,14 +2,22 @@
 
     <div class="spotlight-item-thumb">
         <div class="spotlight-item-thumb-img">
-            <a href="#">
-                <img alt="{{ article.titre }}" src="{{ asset('images/product/'~ article.featuredimage) }}" />
+            <a href="{{ path('index_article', {
+                categorie: article.categorie.slug,
+                slug: article.slug,
+                id: article.id
+            }) }}">
+                <img alt="{{ article.titre }}" src="{{ asset('images/product/'~ article.featuredimage) }}"/>
             </a>
             <a href="{{ path('index_categorie', {
                 categorie: article.categorie.nom | lower
             }) }})" class="cate-tag">{{ article.categorie.nom }}</a>
         </div>
-        <h3><a href="javascript:void (0)">{{ article.titre }}</a></h3>
+        <h3><a href="{{ path('index_article', {
+                categorie: article.categorie.slug,
+                slug: article.slug,
+                id: article.id
+            }) }}">{{ article.titre }}</a></h3>
         <div class="meta-post">
             <a href="javascript:void (0)">
                 {{ article.membre.prenom ~ ' ' ~ article.membre.nom }}

@@ -1,0 +1,10 @@
+sidebar.hello: Hello
+sidebar.last.connection: 'Last connection'
+sidebar.article.new: 'Create an article'
+sidebar.article.edit: 'Edit this article'
+sidebar.last.publications: 'Last publications'
+sidebar.newsletter.description: 'Sign up to receive our last publications.'
+sidebar.newsletter.placeholder: 'Your email...'
+sidebar.newsletter.btn: 'Sign up !'
+sidebar.social.followus: 'Follow us'
+sidebar.spotlight: Spotlight

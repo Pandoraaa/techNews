@@ -24,18 +24,19 @@ class NewsletterType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Saisissez votre Email'
+                    'placeholder' => 'newsletter.modal.email'
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => "Je m'inscris !"
-            ])
-        ;
+                'label' => "newsletter.modal.submit"
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault('data_class', Newsletter::class);
+        $resolver->setDefaults([
+            'data_class'=>Newsletter::class,
+            'translation_domain' => 'newsletter']);
     }
 
 }

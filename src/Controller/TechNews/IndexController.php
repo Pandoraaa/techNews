@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Article\Provider\YamlProvider;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class IndexController extends Controller
 {
@@ -46,9 +47,14 @@ class IndexController extends Controller
 
     /**
      * Page permettant d'afficher les articles d'une catégorie.
-     * @Route("/categorie/{slug<\w+>}",
-     *     name="index_categorie",
-     *     defaults={"slug":"breaking-news"},
+     * @Route({
+     *     "fr": "/{_locale}/categorie/{slug<\w+>}",
+     *     "en": "/{_locale}/category/{slug<\w+>}"
+     * }, name="index_categorie",
+     *     defaults={
+     *     "slug":"breaking-news",
+     *     "locale": "fr"
+     *     },
      *     requirements={"slug"="\w+"},
      *     methods={"GET"})
      * @param Categorie $categorie
@@ -89,8 +95,9 @@ class IndexController extends Controller
 
     /**
      * Afficher un Article
-     * @Route("/{categorie<\w+>}/{slug}_{id<\d+>}.html",
-     *     name="index_article")
+     * @Route("/{_locale}/{categorie<\w+>}/{slug}_{id<\d+>}.html",
+     *     name="index_article",
+     *     defaults={"locale": "fr"})
      * @param Article $article
      * @return Response
      */

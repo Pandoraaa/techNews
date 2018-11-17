@@ -32,15 +32,14 @@ class ConnexionType extends AbstractType
                 ]
             ])
             ->add('password', PasswordType::class, [
-                'label'=> false,
+                'label' => false,
                 'attr' => [
-                    'placeholder' => 'Mot de passe'
+                    'placeholder' => 'password'
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Connexion'
-            ])
-        ;
+                'label' => 'form.login'
+            ]);
 
     }
 

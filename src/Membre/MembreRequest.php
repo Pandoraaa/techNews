@@ -13,36 +13,36 @@ use Symfony\Component\Validator\Constraints as Assert;
 class MembreRequest
 {
     /**
-     * @Assert\NotBlank(message="Saississez votre Prénom")
-     * @Assert\Length(max="50", maxMessage="Votre prénom est trop long. {{ limit }} caractères max.")
+     * @Assert\NotBlank(message="asserts.membre.notblank.firstname")
+     * @Assert\Length(max="50", maxMessage="asserts.membre.length.max.firstname")
      */
     private $prenom;
 
     /**
-     * @Assert\NotBlank(message="Saississez votre Nom")
-     * @Assert\Length(max="50", maxMessage="Votre nom est trop long. {{ limit }} caractères max.")
+     * @Assert\NotBlank(message="asserts.membre.notblank.name")
+     * @Assert\Length(max="50", maxMessage="asserts.membre.length.max.name")
      */
     private $nom;
 
     /**
-     * @Assert\Email(message="Vérifiez votre Email")
-     * @Assert\NotBlank(message="Saississez votre Email")
-     * @Assert\Length(max="80", maxMessage="Votre email est trop long. {{ limit }} caractères max.")
+     * @Assert\Email(message="asserts.membre.email")
+     * @Assert\NotBlank(message="asserts.membre.notblank.email")
+     * @Assert\Length(max="80", maxMessage="asserts.membre.length.max.email")
      */
     private $email;
 
     /**
-     * @Assert\NotBlank(message="N'oubliez pas votre mot de passe")
+     * @Assert\NotBlank(message="asserts.membre.notblank.password")
      * @Assert\Regex(pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$/",
-     *     message="Votre mot de passe doit contenir au moins 8 caractères, une majuscule et un chiffre")
+     *     message="asserts.membre.regex.password")
      * @Assert\Length(
-     *      min="8", minMessage="Votre mot de passe est trop court. {{ limit }} caractères min.",
-     *      max="20", maxMessage="Votre mot de passe est trop long. {{ limit }} caractères max.")
+     *      min="8", minMessage="asserts.membre.length.min.password",
+     *      max="20", maxMessage="asserts.membre.length.max.password")
      */
     private $password;
 
     /**
-     * @Assert\IsTrue(message="Vous devez valider nos CGU")
+     * @Assert\IsTrue(message="asserts.membre.istrue.cgu")
      */
     private $conditions;
 

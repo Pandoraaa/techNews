@@ -31,8 +31,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->orderBy('a.id', 'DESC')
             ->setMaxResults(self::MAX_RESULT)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
 
@@ -42,21 +41,16 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->where('a.categorie = :categorie_id')
             ->setParameter('categorie_id', $idCategorie)
-
             # sauf un article ($idArticle)
             ->andWhere('a.id != :article_id')
             ->setParameter('article_id', $idArticle)
-
             # ordre décroissant
             ->orderBy('a.id', 'DESC')
-
             # 3 Articles max
             ->setMaxResults(self::MAX_SUGGESTIONS)
-
             # On finalise
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     /**
@@ -66,11 +60,10 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->where('a.spotlight = 1')
-            ->orderBy('a.id','DESC')
+            ->orderBy('a.id', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     /**
@@ -80,11 +73,10 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->where('a.special = 1')
-            ->orderBy('a.id','DESC')
+            ->orderBy('a.id', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     // /**

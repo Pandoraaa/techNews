@@ -1,7 +1,8 @@
 <div>
     <article class="spotlight-item">
         <div class="spotlight-img">
-            <img alt="{{ article.titre }}" src="{{ asset('images/product/'~ article.featuredimage) }}" class="img-responsive" />
+            <img alt="{{ article.titre }}" src="{{ asset('images/product/'~ article.featuredimage) }}"
+                 class="img-responsive"/>
             <a href="{{ path('index_categorie', {
                 categorie: article.categorie.nom | lower
             }) }})" class="cate-tag">{{ article.categorie.nom }}</a>

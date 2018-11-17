@@ -19,7 +19,10 @@ class SecurityController extends Controller
 {
     /**
      * Connexion d'un Membre
-     * @Route("/connexion", name="security_connexion")
+     * @Route({
+     *     "fr":"/connexion",
+     *     "en": "/login"
+     * }, name="security_connexion")
      * @param Request $request
      * @param AuthenticationUtils $authenticationUtils
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -33,7 +36,7 @@ class SecurityController extends Controller
 
         # Récupération du formulaire de connexion
         $form = $this->createForm(ConnexionType::class, [
-           'email' => $authenticationUtils->getLastUsername()
+            'email' => $authenticationUtils->getLastUsername()
         ]);
 
         # Récupération du message d'erreur
@@ -49,7 +52,10 @@ class SecurityController extends Controller
 
     /**
      * Déconnexion d'un Membre
-     * @Route("/deconnexion", name="security_deconnexion")
+     * @Route({
+     *     "fr":"/deconnexion",
+     *     "en":"/logout"
+     * }, name="security_deconnexion")
      */
     public function deconnexion()
     {

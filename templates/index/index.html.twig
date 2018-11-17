@@ -3,7 +3,7 @@
 {% set active = 'index' %}
 
 {% block page_title %}
-    Accueil
+    {% trans from "nav" %}nav.home{% endtrans %}
 {% endblock %}
 
 {% block stylesheets %}
@@ -18,12 +18,12 @@
     <!--colleft-->
     <div class="col-md-8 col-sm-12">
         <div class="box-caption">
-            <span>spotlight</span>
+            <span>{{ 'spotlight'|trans }}</span>
         </div>
         <!--spotlight-->
         <section class="owl-carousel owl-spotlight">
             {% for article in spotlights %}
-                    {% include 'components/_spotlight.html.twig' %}
+                {% include 'components/_spotlight.html.twig' %}
             {% endfor %}
         </section>
 
@@ -40,4 +40,4 @@
     {# Sidebar #}
     {#{% include 'components/_sidebar.html.twig' %}#}
     {{ render(controller('App\\Controller\\TechNews\\IndexController::sidebar')) }}
-{% endblock %}
+    {% endblock %}

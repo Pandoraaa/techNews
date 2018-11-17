@@ -28,7 +28,7 @@ class MembreFactory
         $membre->setNom($request->getNom());
         $membre->setEmail($request->getEmail());
         $membre->setRoles($request->getRoles());
-        $membre->setPassword($this->encoder->encodePassword($membre,$request->getPassword()));
+        $membre->setPassword($this->encoder->encodePassword($membre, $request->getPassword()));
 
         return $membre;
     }

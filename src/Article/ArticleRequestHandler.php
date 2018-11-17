@@ -41,8 +41,8 @@ class ArticleRequestHandler
         /** @var UploadedFile $image */
         $image = $request->getFeaturedImage();
 
-        if (null!=$image){
-            $fileName = $this->slugify($request->getTitre()).'.'.$image->guessExtension();
+        if (null != $image) {
+            $fileName = $this->slugify($request->getTitre()) . '.' . $image->guessExtension();
 
             try {
                 $image->move(

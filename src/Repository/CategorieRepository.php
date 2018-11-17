@@ -25,8 +25,7 @@ class CategorieRepository extends ServiceEntityRepository
             ->addSelect('c')
             ->join('c.articles', 'a')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     // /**

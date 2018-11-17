@@ -23,47 +23,47 @@ class MembreType extends AbstractType
     {
         $builder
             ->add('prenom', TextType::class, [
-                'label' => 'Votre prénom',
-                'attr'=> [
-                    'placeholder' => 'Prénom...'
+                'label' => 'form.register.firstname',
+                'attr' => [
+                    'placeholder' => 'form.placeholder.firstname'
                 ]
             ])
             ->add('nom', TextType::class, [
-                'label' => 'Votre nom',
-                'attr'=> [
-                    'placeholder' => 'Nom...'
+                'label' => 'form.register.name',
+                'attr' => [
+                    'placeholder' => 'form.placeholder.name'
                 ]
             ])
-            ->add('email', EmailType::class,  [
-                'label' => 'Votre email',
-                'attr'=> [
-                    'placeholder' => 'Email...'
+            ->add('email', EmailType::class, [
+                'label' => 'form.register.email',
+                'attr' => [
+                    'placeholder' => 'form.placeholder.email'
                 ]
             ])
-            ->add('password', PasswordType::class,  [
-                'label' => 'Votre mot de passe',
-                'attr'=> [
-                    'placeholder' => 'Mot de passe...'
+            ->add('password', PasswordType::class, [
+                'label' => 'form.register.password',
+                'attr' => [
+                    'placeholder' => 'form.placeholder.password'
                 ]
             ])
-            ->add('conditions', CheckboxType::class,  [
-                'label' => 'J\'accepte les CGU',
-                'attr'      => [
-                    'data-toggle'   => 'toggle',
-                    'data-on'       => 'Oui',
-                    'data-off'      => 'Non'
+            ->add('conditions', CheckboxType::class, [
+                'label' => 'form.register.cgu',
+                'attr' => [
+                    'data-toggle' => 'toggle',
+                    'data-on' => 'yes',
+                    'data-off' => 'no'
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Je m\'inscris !'
-            ])
-        ;
+                'label' => 'form.register.submit'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => MembreRequest::class
+            'data_class' => MembreRequest::class,
+            'translation_domain' => 'forms'
         ]);
     }
 

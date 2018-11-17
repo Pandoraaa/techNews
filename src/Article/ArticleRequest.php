@@ -20,10 +20,10 @@ class ArticleRequest
     private $id;
 
     /**
-     * @Assert\NotBlank(message="Vous devez saisir un titre")
+     * @Assert\NotBlank(message="asserts.article.notblank.title")
      * @Assert\Length(
      *     max="255",
-     *     maxMessage="Votre titre est trop long. Pas plus de {{ limit }} caractères."
+     *     maxMessage="asserts.article.length.max.title"
      * )
      */
     private $titre;
@@ -31,15 +31,15 @@ class ArticleRequest
     private $slug;
 
     /**
-     * @Assert\NotBlank(message="N'oubliez pas votre article. Ce serait ballot...")
+     * @Assert\NotBlank(message="asserts.article.notblank.content")
      */
     private $contenu;
 
     /**
      * @Assert\Image(
-     *     mimeTypesMessage="Vérifiez le format de votre fichier. Uniquement des images",
+     *     mimeTypesMessage="asserts.article.image.mimetype",
      *     maxSize="2M",
-     *     maxSizeMessage="Votre image est trop lourde. {{ limit }} max"
+     *     maxSizeMessage="asserts.article.image.size.max"
      * )
      */
     private $featuredImage;
@@ -51,7 +51,7 @@ class ArticleRequest
     private $spotlight;
 
     /**
-     * @Assert\NotNull(message="N'oubliez pas de choisir une catégorie.")
+     * @Assert\NotNull(message="asserts.article.notnull.category")
      */
     private $categorie;
 
@@ -83,8 +83,8 @@ class ArticleRequest
         $ar->titre = $article->getTitre();
         $ar->slug = $article->getSlug();
         $ar->contenu = $article->getContenu();
-        $ar->featuredImage = new File($articleAssetDir.'/'.$article->getFeaturedImage());
-        $ar->imageUrl = $packages->getUrl('images/product/'.$article->getFeaturedImage());
+        $ar->featuredImage = new File($articleAssetDir . '/' . $article->getFeaturedImage());
+        $ar->imageUrl = $packages->getUrl('images/product/' . $article->getFeaturedImage());
         $ar->special = $article->getSpecial();
         $ar->spotlight = $article->getSpotlight();
         $ar->categorie = $article->getCategorie();

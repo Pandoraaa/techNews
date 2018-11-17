@@ -32,11 +32,11 @@ class AppExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new \Twig_Function('getCategories', function (){
+            new \Twig_Function('getCategories', function () {
                 return $this->em->getRepository(Categorie::class)
                     ->findCategoriesHavingArticles();
             }),
-            new \Twig_Function('isUserInvited', function (){
+            new \Twig_Function('isUserInvited', function () {
                 return $this->session->get('inviteUserModal');
             })
         ];
@@ -45,18 +45,18 @@ class AppExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new \Twig_Filter('summary', function ($text){
+            new \Twig_Filter('summary', function ($text) {
                 # Suppression des balises html
                 $string = strip_tags($text);
 
                 # Si string supérieure 170 , je continue
-                if (strlen($string) > self::NB_SUMMARY_CHAR){
+                if (strlen($string) > self::NB_SUMMARY_CHAR) {
 
                     # Je coupe la string à 170
                     $stringCut = substr($string, 0, self::NB_SUMMARY_CHAR);
 
                     # Je m'assure de ne pas couper un mot
-                    $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'...';
+                    $string = substr($stringCut, 0, strrpos($stringCut, ' ')) . '...';
                 }
                 return $string;
             }, ['is_safe' => ['html']])

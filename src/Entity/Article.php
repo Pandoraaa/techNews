@@ -108,7 +108,7 @@ class Article
         bool $special,
         bool $spotlight,
         Categorie $categorie
-        )
+    )
     {
         $this->titre = $titre;
         $this->slug = $slug;
@@ -240,7 +240,7 @@ class Article
         $this->membre = $membre;
     }
 
-    public function isAuteur(?Membre $membre = null):bool
+    public function isAuteur(?Membre $membre = null): bool
     {
         return $membre && $this->membre->getId() === $membre->getId();
     }
