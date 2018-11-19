@@ -15,7 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Article\Provider\YamlProvider;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class IndexController extends Controller
 {

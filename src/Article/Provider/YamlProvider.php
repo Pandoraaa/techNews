@@ -8,22 +8,31 @@
 
 namespace App\Article\Provider;
 
-use Symfony\Component\Yaml\Exception\ParseException;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 
 class YamlProvider
 {
+    private $kernel;
+
+    /**
+     * YamlProvider constructor.
+     * @param KernelInterface $kernel
+     */
+    public function __construct(KernelInterface $kernel)
+    {
+        $this->kernel = $kernel;
+    }
+
     /**
      * Retourne les articles.yaml sous forme de tableau
      */
     public function getArticles()
     {
-        try {
-            $articles = Yaml::parseFile(__DIR__ . '/articles.yaml')['data'];
-            return $articles;
-        } catch (ParseException $exception) {
-            printf('Unable to parse the YAML string: %s', $exception->getMessage());
-        }
+        $articles = unserialize(file_get_contents(
+            $this->kernel->getCacheDir().'/yaml-articles.php'
+        ));
+
+        return $articles['data'];
     }
 }
