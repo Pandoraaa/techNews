@@ -2,11 +2,11 @@ data:
   article1:
     id: 1
     titre: 'Unicorns are real'
-    contenu: '<p>CONTENU</p>'
+    contenu: '<p>Reeaaaallll</p>'
     featuredimage: '2.jpg'
     special: false
     spotlight: true
-    datecreation: 2017-02-26 09:37:18
+    datecreation: 2017-02-28 09:37:18
     categorie:
       id: 2
       libelle: 'Business'
@@ -14,16 +14,16 @@ data:
       id: 1
       prenom: 'Hugo'
       nom: 'LIEGEARD'
-      email: 'wf3@hl-media.fr'
+      email: 'hugo@tech.news'
 
   article2:
     id: 2
     titre: 'Unicorns are shinny'
-    contenu: '<p>CONTENU</p>'
+    contenu: '<p>Shhiiiiiinnnnnnnyyyy</p>'
     featuredimage: '6.jpg'
     special: false
     spotlight: true
-    datecreation: 2017-02-26 09:37:18
+    datecreation: 2017-02-27 09:37:18
     categorie:
       id: 3
       libelle: 'Tech'
@@ -31,12 +31,12 @@ data:
       id: 2
       prenom: 'Toto'
       nom: 'TATA'
-      email: 'wf3@hl-media.fr'
+      email: 'toto@tech.news'
 
   article3:
     id: 3
     titre: 'Unicorns are everything'
-    contenu: '<p>CONTENU</p>'
+    contenu: '<p>Everythiiiiinnng</p>'
     featuredimage: '5.jpg'
     special: true
     spotlight: false
@@ -48,4 +48,4 @@ data:
       id: 1
       prenom: 'Bob'
       nom: 'BOBBY'
-      email: 'wf3@hl-media.fr'
+      email: 'bob@tech.news'

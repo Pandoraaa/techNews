@@ -32,4 +32,16 @@ class MembreFactory
 
         return $membre;
     }
+
+    public function createFromYaml($data)
+    {
+        $membre = new Membre();
+        $membre->setNom($data['auteur']['nom']);
+        $membre->setPrenom($data['auteur']['prenom']);
+        $membre->setEmail($data['auteur']['email']);
+        $membre->setPassword($this->encoder->encodePassword($membre, $data['auteur']['email']));
+        $membre->setRoles(['ROLE_AUTEUR']);
+
+        return $membre;
+    }
 }

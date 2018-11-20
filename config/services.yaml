@@ -38,3 +38,32 @@ services:
   App\Article\ArticleRequestUpdateHandler:
     arguments:
       $articleAssetsDir: '%articles_assets_dir%'
+
+  # solution 1
+#  App\Article\ArticleCatalogue:
+#    calls:
+#      - ['addSource', ['@App\Article\Source\YamlSource']]
+#      - ['addSource', ['@App\Article\Source\DoctrineSource']]
+
+  # solution 2
+#  App\Article\Source\YamlSource:
+#    tags:
+#      - app.article_source
+#
+#  App\Article\Source\DoctrineSource:
+#    tags:
+#      - app.article_source
+#
+#  App\Article\ArticleCatalogue:
+#    calls:
+#      - ['setSources', [!tagged app.article_source]]
+
+  # solution 3 // la 4 c'est créer le compilerPass
+  _instanceof:
+    App\Article\ArticleAbstractSource:
+      tags:
+        - app.article_source
+#  App\Article\ArticleCatalogue:
+#      calls:
+#        - ['setSources', [!tagged app.article_source]]
+

@@ -33,6 +33,6 @@ class YamlProvider
             $this->kernel->getCacheDir().'/yaml-articles.php'
         ));
 
-        return $articles['data'];
+        return $articles;
     }
 }

@@ -8,30 +8,37 @@
 
 namespace App\Controller\TechNews;
 
-
+use App\Article\ArticleCatalogue;
+use App\Article\Provider\YamlProvider;
 use App\Entity\Article;
 use App\Entity\Categorie;
+use App\Exception\DuplicateCatalogueArticleException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Article\Provider\YamlProvider;
 
 class IndexController extends Controller
 {
     /**
      * Page d'accueil de notre site internet.
      * @param YamlProvider $yamlProvider
+     * @param ArticleCatalogue $articleCatalogue
      * @return Response
      */
-    public function index(YamlProvider $yamlProvider)
+    public function index(YamlProvider $yamlProvider,
+                          ArticleCatalogue $articleCatalogue)
     {
+
+        $articles = $articleCatalogue->findAll();
+        dump($articles);
+//        $spotlights = $articleCatalogue->findSpotlight();
         # Récupération des Articles depuis YamlProvider
         #$articles = $yamlProvider->getArticles();
 
-        # Récupération des Articles de la DB
-        $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
-
-        # Récupération des Articles Spotlight
+//        # Récupération des Articles de la DB
+//        $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
+//
+//        # Récupération des Articles Spotlight
         $spotlights = $this->getDoctrine()->getRepository(Article::class)->findSpotlightArticles();
 
         return $this->render('index/index.html.twig', [
@@ -100,7 +107,7 @@ class IndexController extends Controller
      * @param Article $article
      * @return Response
      */
-    public function article(Article $article = null)
+    public function article(Article $article = null, $id, ArticleCatalogue $catalogue)
     {
 //        $article = $this->getDoctrine()
 //            ->getRepository(Article::class)
@@ -117,6 +124,12 @@ class IndexController extends Controller
             # On pourrait vérifier également, l'intégralité de l'url.
         }
 
+        try {
+            $article = $catalogue->find($id);
+        } catch (DuplicateCatalogueArticleException $e) {
+            return $this->redirectToRoute('index');
+        }
+
         # Récupération des suggestions
         $suggestions = $this->getDoctrine()
             ->getRepository(Article::class)
@@ -129,18 +142,21 @@ class IndexController extends Controller
         ]);
     }
 
-    public function sidebar(?Article $article = null)
+    public function sidebar(?Article $article = null, ArticleCatalogue $catalogue)
     {
         # Récupération du Repository
-        $repository = $this->getDoctrine()
-            ->getRepository(Article::class);
+//        $repository = $this->getDoctrine()
+//            ->getRepository(Article::class);
+//
 
         # Récupération des 5 derniers articles
-        $articles = $repository->findLastestArticles();
+//        $articles = $repository->findLastestArticles();
+        $articles = $catalogue->findLatestArticles();
 
         # Récupération des articles à la position "special"
-        $specials = $repository->findSpecialArticles();
+//        $specials = $repository->findSpecialArticles();
 
+        $specials = $catalogue->findSpecial();
         # Rendu de la vue
         return $this->render('components/_sidebar.html.twig', [
             'articles' => $articles,
@@ -149,4 +165,7 @@ class IndexController extends Controller
         ]);
     }
 
+    public function mediate()
+    {
+    }
 }
